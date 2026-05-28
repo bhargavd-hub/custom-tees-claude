@@ -1,25 +1,28 @@
-const DEFAULT_BRANDS = [
-  { name: "GILDAN", className: "tracking-tight" },
-  { name: "BELLA + CANVAS", className: "tracking-wider" },
-  { name: "Tultex", className: "italic text-brand" },
-  { name: "DISTRICT", className: "tracking-[0.18em]" },
-  { name: "Comfort Colors", className: "italic" },
-  { name: "ascolour", className: "lowercase tracking-tight" },
-  { name: "next level apparel", className: "lowercase tracking-tight" },
+const BRANDS = [
+  { name: "GILDAN", className: "" },
+  { name: "bella+canvas", className: "lowercase" },
+  { name: "DISTRICT", className: "text-brand" },
+  { name: "COMFORT COLORS", className: "" },
+  { name: "HANES", className: "" },
+  { name: "next level", className: "lowercase" },
+  { name: "AMERICAN APPAREL", className: "" },
+  { name: "ANVIL", className: "" },
+  { name: "PORT & CO.", className: "" },
+  { name: "SPORT-TEK", className: "" },
 ];
 
 export function BrandLogosStrip() {
   return (
-    <section className="bg-white py-12 md:py-14">
-      <div className="container-wide">
-        <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-ink">
+    <section className="bg-white px-0 pb-10">
+      <div className="rounded-section bg-cream py-16 mx-3 px-12">
+        <h2 className="text-center font-display text-2xl font-bold text-ink md:text-3xl">
           Quality Apparel Brands We Print On
-        </p>
-        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 text-ink/85 md:gap-x-14">
-          {DEFAULT_BRANDS.map((b) => (
+        </h2>
+        <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-12">
+          {BRANDS.map((b) => (
             <li
               key={b.name}
-              className={`font-display text-lg font-bold transition-opacity md:text-xl ${b.className ?? ""}`}
+              className={`font-display text-lg font-bold uppercase tracking-wider text-ink-muted opacity-70 transition-opacity hover:opacity-100 ${b.className}`}
             >
               {b.name}
             </li>

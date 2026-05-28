@@ -1,107 +1,64 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ChevronRight } from "@/components/ui/Icon";
-import { IMG } from "@/lib/images";
-
-const FEATURES = [
-  "Free Shipping",
-  "No Rush Order Fees",
-  "See & Feel Garments Before Ordering",
-  "In-Person Help From A Print Specialist",
-  "Proof First Approval (Placement + Scale)",
-  "Pickup Option For Tight Deadlines",
-  "Better Control of Print Size & Placement",
-  "Quality Checks Before You Receive It",
-  "Easy Last-Minute Size/Quantity Adjustments",
+const ITEMS = [
+  {
+    icon: "✓",
+    title: "Free Shipping",
+    body: "Enjoy free standard shipping on all qualifying orders to your door.",
+  },
+  {
+    icon: "⚡",
+    title: "Fast Turnaround",
+    body: "24-72 hour printing with rush availability — no rush fees charged.",
+  },
+  {
+    icon: "🎨",
+    title: "Free Artwork Review",
+    body: "Our design specialists review and enhance your artwork at no cost.",
+  },
+  {
+    icon: "💲",
+    title: "No Hidden Fees",
+    body: "Zero setup fees, no minimums. Transparent pricing, always.",
+  },
 ];
-
-function Check({ on }: { on: boolean }) {
-  return on ? (
-    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="m5 12 5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
-  ) : (
-    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/15 text-cream/60">
-      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      </svg>
-    </span>
-  );
-}
 
 export function WhyOrderWithUs() {
   return (
-    <section className="relative isolate overflow-hidden bg-wine py-16 text-cream md:py-20">
-      <div className="container-wide">
-        <div className="text-center">
-          <h2 className="font-display text-3xl font-bold md:text-4xl lg:text-[2.5rem]">
+    <section className="bg-white px-3 pb-6">
+      <div className="relative overflow-hidden rounded-section bg-wine px-6 py-16 md:px-12 md:py-20">
+        {/* Decorative tilted square */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-[10%] top-1/2 h-[200px] w-[200px] -translate-y-1/2 rotate-[-30deg] bg-white/[0.05]"
+        />
+
+        <div className="relative mx-auto max-w-[800px] text-center">
+          <h2 className="font-display text-2xl font-bold leading-tight text-white md:text-3xl lg:text-[32px] lg:leading-10">
             Why Ordering With Us Works Better
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-cream/80 md:text-base">
-            Not all print shops are built the same. Request a quote above and
-            see the difference for yourself.
+          <p className="mt-2 font-body text-lg leading-7 text-[#DBD2D3] md:text-xl">
+            Not all print shops are built the same. Request a quick quote now.
           </p>
-        </div>
 
-        <div className="relative mt-12 grid gap-6 md:grid-cols-[auto_1fr_1fr_auto] md:items-center">
-          {/* Left decorative image */}
-          <div className="relative hidden h-72 w-44 shrink-0 overflow-hidden rounded-2xl md:block">
-            <Image src={IMG.whyLeft} alt="" fill sizes="180px" className="object-cover" />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {ITEMS.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-xl border border-white/10 bg-white/[0.06] p-6 text-left"
+              >
+                <p className="text-[28px] leading-none">{item.icon}</p>
+                <h3 className="mt-3 font-display text-lg font-bold text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 font-body text-sm leading-snug text-[#DBD2D3]">
+                  {item.body}
+                </p>
+              </article>
+            ))}
           </div>
 
-          {/* Online-Only Print Shops */}
-          <article className="rounded-2xl bg-wine-900/60 p-6 ring-1 ring-cream/10 md:p-8">
-            <p className="font-display text-lg font-semibold text-cream/90">
-              Online-Only Print Shops
-            </p>
-            <ul className="mt-5 space-y-3 text-sm">
-              {FEATURES.map((f, i) => (
-                <li key={f} className="flex items-start gap-3 text-cream/75">
-                  <Check on={i < 3} />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          {/* Custom Tees — recommended */}
-          <article className="relative rounded-2xl bg-white p-6 text-ink shadow-card-hover md:p-8">
-            <span className="absolute -top-3 right-6 rounded-pill bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-              Recommended
-            </span>
-            <p className="font-display text-lg font-semibold text-ink">
-              Custom Tees
-            </p>
-            <ul className="mt-5 space-y-3 text-sm">
-              {FEATURES.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-ink">
-                  <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path d="m5 12 5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          {/* Right decorative image */}
-          <div className="relative hidden h-72 w-44 shrink-0 overflow-hidden rounded-2xl md:block">
-            <Image src={IMG.whyRight} alt="" fill sizes="180px" className="object-cover" />
-          </div>
-        </div>
-
-        <div className="mt-10 flex justify-center">
-          <Link
-            href="#quote"
-            className="inline-flex h-12 items-center gap-2 rounded-pill bg-brand px-8 text-sm font-semibold uppercase tracking-wide text-white hover:bg-brand-600"
-          >
+          <button type="button" className="btn-white mt-12">
             Quick Quote
-            <ChevronRight size={16} />
-          </Link>
+          </button>
         </div>
       </div>
     </section>

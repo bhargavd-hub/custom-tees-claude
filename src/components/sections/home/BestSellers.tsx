@@ -1,107 +1,110 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "@/components/ui/Icon";
-import { IMG } from "@/lib/images";
+import { useRef, useState, useEffect } from "react";
 
-const ITEMS = [
-  {
-    slug: "unisex-jersey-tee",
-    name: "Unisex Jersey T-Shirt — 1UP",
-    image: IMG.productRed1up,
-  },
-  {
-    slug: "unisex-cvc-crew",
-    name: "Unisex CVC Crewneck",
-    image: IMG.productBlue,
-  },
-  {
-    slug: "district-very-light",
-    name: "District Brand Very Light Tee",
-    image: IMG.productCharcoal,
-  },
-  {
-    slug: "adult-ultra-cotton",
-    name: "Adult Ultra Cotton T-Shirt",
-    image: IMG.productBlack,
-  },
+const PRODUCTS = [
+  { name: "Unisex Jersey T-Shirt 3001C", gradient: "from-wine-800 to-brand-deep" },
+  { name: "Unisex CVC Crewneck T-Shirt N6210", gradient: "from-[#2a4060] to-[#1a2a40]" },
+  { name: "District Brand Very Important Unisex 100% Cotton T-Shirt DT6000", gradient: "from-[#303030] to-[#1a1a1a]" },
+  { name: "Adult Ultra Cotton® T-Shirt G200", gradient: "from-[#1f5c3a] to-[#143d26]" },
+  { name: "Unisex CVC Crewneck T-Shirt N6210", gradient: "from-[#5a2e6e] to-[#3c1a4a]" },
+  { name: "Premium Hoodie Classic Fit", gradient: "from-[#7a4a1e] to-[#5a2e0e]" },
 ];
 
 export function BestSellers() {
-  const trackRef = useRef<HTMLUListElement | null>(null);
-  const scrollBy = (dx: number) => trackRef.current?.scrollBy({ left: dx, behavior: "smooth" });
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [idx, setIdx] = useState(0);
+  const [maxIdx, setMaxIdx] = useState(0);
+  const [cardW, setCardW] = useState(234);
+
+  useEffect(() => {
+    const calc = () => {
+      const el = trackRef.current;
+      if (!el) return;
+      const w = el.querySelector("[data-card]")?.clientWidth ?? 210;
+      const gap = 24;
+      const cw = w + gap;
+      setCardW(cw);
+      const viewW = el.parentElement?.clientWidth ?? 0;
+      const visible = Math.max(1, Math.floor(viewW / cw));
+      setMaxIdx(Math.max(0, PRODUCTS.length - visible));
+    };
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
+
+  const goPrev = () => setIdx((i) => Math.max(0, i - 1));
+  const goNext = () => setIdx((i) => Math.min(maxIdx, i + 1));
+
+  const progress = maxIdx === 0 ? 100 : (idx / maxIdx) * 100;
 
   return (
-    <section className="bg-surface py-16 md:py-20">
+    <section className="bg-cream py-16 md:py-20">
       <div className="container-wide">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">
-              Premium Essentials
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-4xl lg:text-[2.5rem]">
-              Shop <span className="text-brand">Best Sellers</span> & Choose Your Style To Customize
-            </h2>
-          </div>
-          <div className="hidden items-center gap-2 md:flex">
-            <button
-              type="button"
-              onClick={() => scrollBy(-380)}
-              aria-label="Scroll left"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink hover:border-brand hover:text-brand"
-            >
-              <ChevronLeft size={16} />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollBy(380)}
-              aria-label="Scroll right"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink hover:border-brand hover:text-brand"
-            >
-              <ChevronRight size={16} />
-            </button>
+        <div className="text-center">
+          <p className="font-body text-base font-bold text-ink md:text-lg">
+            Premium Essentials
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-ink md:text-4xl lg:text-[40px] lg:leading-[48px]">
+            Shop <span className="emphasis-red">Best Sellers</span> &amp; Choose Your Style To Customize
+          </h2>
+        </div>
+
+        <div className="mt-10 overflow-hidden">
+          <div
+            ref={trackRef}
+            className="flex gap-6 transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${idx * cardW}px)` }}
+          >
+            {PRODUCTS.map((p, i) => (
+              <article
+                key={i}
+                data-card
+                className={`relative h-[434px] w-[210px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] bg-gradient-to-br ${p.gradient}`}
+              >
+                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-transparent to-transparent p-6">
+                  <h3 className="font-display text-lg font-bold leading-6 text-white">
+                    {p.name}
+                  </h3>
+                  <button
+                    type="button"
+                    className="mt-4 inline-flex h-12 w-fit items-center rounded-pill bg-white px-8 font-display text-base font-bold text-ink hover:bg-cream"
+                  >
+                    Start Designing
+                  </button>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
 
-        <ul
-          ref={trackRef}
-          className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
-        >
-          {ITEMS.map((item) => (
-            <li key={item.slug}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-card transition-shadow hover:shadow-card-hover">
-                <Link
-                  href={`/detail/${item.slug}`}
-                  className="relative block aspect-[4/5] overflow-hidden bg-surface"
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </Link>
-                <div className="flex flex-1 flex-col gap-4 p-5">
-                  <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-ink">
-                    <Link href={`/detail/${item.slug}`} className="hover:text-brand">
-                      {item.name}
-                    </Link>
-                  </h3>
-                  <Link
-                    href={`/detail/${item.slug}`}
-                    className="mt-auto inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-pill bg-brand text-xs font-semibold uppercase tracking-wide text-white hover:bg-brand-600"
-                  >
-                    Start Designing
-                    <ChevronRight size={14} />
-                  </Link>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6 flex items-center gap-3">
+          <div className="relative h-0.5 flex-1 rounded bg-black/10">
+            <div
+              className="absolute left-0 top-0 h-full rounded bg-ink transition-[width] duration-300"
+              style={{ width: `${Math.max(20, progress)}%` }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={idx === 0}
+            aria-label="Previous"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-black/20 bg-white text-base text-ink disabled:opacity-40"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={idx >= maxIdx}
+            aria-label="Next"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-black/20 bg-white text-base text-ink disabled:opacity-40"
+          >
+            ›
+          </button>
+        </div>
       </div>
     </section>
   );

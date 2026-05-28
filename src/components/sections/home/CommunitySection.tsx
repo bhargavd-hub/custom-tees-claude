@@ -1,66 +1,91 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ChevronRight } from "@/components/ui/Icon";
 import { IMG } from "@/lib/images";
 
-const THUMBS = [IMG.communityThumb1, IMG.communityThumb2, IMG.communityThumb3];
+const OCCASIONS = [
+  {
+    label: "Community Organizations",
+    features: ["Fundraising", "Group Orders", "Fast Delivery", "Custom Design"],
+    desc: "Bring your group together with a clean, coordinated look that stands out.",
+  },
+  {
+    label: "Schools & Teams",
+    features: ["Team Jerseys", "Spirit Wear", "Student Orders", "School Colors"],
+    desc: "Custom spirit wear and team uniforms for schools, sports teams, and student orgs.",
+  },
+  {
+    label: "Businesses & Events",
+    features: ["Corporate Merch", "Event Shirts", "Brand Identity", "Bulk Pricing"],
+    desc: "Elevate your brand with custom apparel for employees, events, and trade shows.",
+  },
+];
 
 export function CommunitySection() {
+  const [active, setActive] = useState(0);
+  const current = OCCASIONS[active];
+
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container-wide grid gap-10 md:grid-cols-2 md:items-center">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">
-            For Every Occasion
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-ink md:text-4xl lg:text-[2.5rem]">
-            Community Organizations
-          </h2>
+    <section className="bg-white px-3 pb-6">
+      <div className="overflow-hidden rounded-section bg-cream py-12 md:py-20">
+        <div className="container-wide">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-[60px]">
+            <div className="w-full lg:w-[524px] lg:shrink-0">
+              <p className="mb-6 font-body text-base font-bold text-ink md:text-lg">
+                For Every Occasion
+              </p>
 
-          <ul className="mt-5 space-y-3 text-lg font-display font-semibold text-ink/85 md:text-xl">
-            <li>Schools & Teams</li>
-            <li className="text-ink-muted/80">Businesses & Events</li>
-          </ul>
+              <ul className="mb-6 flex flex-col gap-4">
+                {OCCASIONS.map((occ, i) => (
+                  <li key={occ.label}>
+                    <button
+                      type="button"
+                      onClick={() => setActive(i)}
+                      aria-pressed={i === active}
+                      className={[
+                        "block w-full rounded-lg border px-5 py-4 text-left font-display text-xl font-bold transition-all",
+                        i === active
+                          ? "border-line bg-white text-ink shadow-card"
+                          : "border-transparent text-ink/35 hover:text-ink/60",
+                      ].join(" ")}
+                    >
+                      {occ.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-ink-muted md:text-base">
-            Bring your group together with a clean, coordinated look that builds
-            pride on game day and beyond.
-          </p>
+              <ul className="mb-6 flex flex-wrap gap-2">
+                {current.features.map((f) => (
+                  <li
+                    key={f}
+                    className="rounded-pill border border-line bg-white px-3.5 py-1.5 text-sm text-ink"
+                  >
+                    {f}
+                  </li>
+                ))}
+              </ul>
 
-          <ul className="mt-6 flex items-center gap-3">
-            {THUMBS.map((src, idx) => (
-              <li
-                key={idx}
-                className="relative h-16 w-14 overflow-hidden rounded-md bg-surface md:h-20 md:w-16"
-              >
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  sizes="64px"
-                  className="object-cover"
-                />
-              </li>
-            ))}
-          </ul>
+              <p className="mb-6 font-body text-base leading-6 text-[#4D4D4D]">
+                {current.desc}
+              </p>
 
-          <Link
-            href="#quote"
-            className="mt-8 inline-flex h-11 w-fit items-center gap-2 rounded-pill bg-ink px-6 text-xs font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
-          >
-            Get A Quote
-            <ChevronRight size={14} />
-          </Link>
-        </div>
+              <button type="button" className="btn-dark">
+                Get a quote
+              </button>
+            </div>
 
-        <div className="relative h-72 overflow-hidden rounded-2xl md:h-[460px]">
-          <Image
-            src={IMG.communityCrowd}
-            alt="Community organization wearing custom tees"
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-          />
+            <div className="relative h-72 w-full overflow-hidden rounded-section bg-[#D1D1E2] sm:h-96 lg:h-[628px] lg:flex-1">
+              <Image
+                src={IMG.occasionsImage}
+                alt="People in custom tees for various occasions"
+                fill
+                sizes="(min-width: 1024px) 720px, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

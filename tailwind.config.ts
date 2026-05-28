@@ -22,50 +22,55 @@ const config: Config = {
     },
     extend: {
       colors: {
+        // EB2127 — primary brand red used for CTAs, accents, emphasis highlight
         brand: {
-          DEFAULT: "#E51E2A",
-          50: "#FEF1F2",
-          100: "#FDE3E5",
-          500: "#E51E2A",
-          600: "#C81824",
-          700: "#A6131D",
+          DEFAULT: "#EB2127",
+          50: "#FDECEC",
+          100: "#FBD9DA",
+          500: "#EB2127",
+          600: "#C81A20",
+          700: "#A6131B",
         },
+        // 8D1417 — deeper brand red used in logo wordmark and FAQ icons
+        "brand-deep": "#8D1417",
+        // 411217 — wine used for announcement bar, dark cards, why-ordering bg, texas bg
         wine: {
-          DEFAULT: "#7A1F2C",
-          50: "#FAEEF0",
-          900: "#5E1622",
+          DEFAULT: "#411217",
+          900: "#2E0C10",
+          800: "#592329",
         },
+        // F7F6F2 — cream section background and light cards
         cream: {
-          DEFAULT: "#F2EBDD",
-          100: "#F8F3E8",
+          DEFAULT: "#F7F6F2",
+          100: "#FBFAF6",
         },
         ink: {
-          DEFAULT: "#1A1A1A",
-          muted: "#5F5F5F",
-          subtle: "#8A8A8A",
+          DEFAULT: "#000000",
+          soft: "#212121",
+          muted: "#666666",
+          subtle: "#999999",
         },
         line: "#E5E5E5",
-        surface: "#F7F7F7",
+        "line-soft": "#DDDDDD",
+        surface: "#F7F6F2",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
-      },
-      fontSize: {
-        "display-xl": ["3.5rem", { lineHeight: "1.05", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "display-lg": ["2.5rem", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "display-md": ["2rem", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "700" }],
+        sans: ["var(--font-urbanist)", "system-ui", "sans-serif"],
+        display: ["var(--font-urbanist)", "system-ui", "sans-serif"],
+        body: ["var(--font-open-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
-        card: "0.75rem",
-        pill: "999px",
+        card: "16px",
+        section: "20px",
+        pill: "100px",
       },
       boxShadow: {
         card: "0 4px 16px rgba(0, 0, 0, 0.06)",
         "card-hover": "0 8px 28px rgba(0, 0, 0, 0.1)",
+        "card-deep": "0 8px 32px rgba(0, 0, 0, 0.3)",
       },
       maxWidth: {
-        content: "1280px",
+        content: "1440px",
       },
     },
   },

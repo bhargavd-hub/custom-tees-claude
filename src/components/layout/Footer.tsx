@@ -10,12 +10,7 @@ import {
 const COLUMNS = [
   {
     title: "Company",
-    links: [
-      "About Custom Tees",
-      "Our Story",
-      "Portfolio",
-      "Blog / News",
-    ],
+    links: ["About Custom Tees", "Our Story", "Portfolio", "Blog / News"],
   },
   {
     title: "Services",
@@ -23,7 +18,7 @@ const COLUMNS = [
       "Design Studio",
       "Screen Printing",
       "Digital Printing (DTG)",
-      "Direct to Film (DTF)",
+      "Direct to Film (DFT) Printing",
       "Vinyl Printing",
       "Embroidery",
     ],
@@ -34,85 +29,89 @@ const COLUMNS = [
       "Family Reunion",
       "Graduation",
       "Birthday Party",
-      "Job",
-      "Holiday / Christmas",
+      "VBS",
       "Homecoming",
-      "Family Vacation",
-      "Church Fundraising",
-      "Boys / Run / Walk",
+      "In Loving Memory",
       "Bachelorette Party",
+      "Race / Run / Walk",
+      "Baby Shower",
+      "Family Vacation",
     ],
   },
   {
     title: "Cities Served",
     links: [
-      "Fort Worth, TX",
       "Dallas, TX",
       "Carrollton, TX",
+      "Lewisville, TX",
       "Plano, TX",
-      "Frisco, TX",
-      "Garland, TX",
+      "DFW, TX",
+      "Arlington, TX",
       "Farmers Branch, TX",
-      "Coppell, TX",
-      "The Colony, TX",
       "Grand Prairie, TX",
-      "Richardson, TX",
+      "Grapevine, TX",
       "Irving, TX",
     ],
   },
 ];
 
+const PAYMENTS = ["VISA", "MC", "AMEX", "PAYPAL", "DINERS", "DISCOVER"];
+
+function TikTokIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="bg-white">
-      {/* Newsletter + columns */}
-      <div className="border-t border-line">
-        <div className="container-wide grid gap-12 py-14 lg:grid-cols-[1fr_2.2fr]">
-          <div>
+    <footer className="border-t border-line bg-white px-4 pb-8 pt-16 md:px-12">
+      <div className="container-wide">
+        {/* Top: brand + 4 cols */}
+        <div className="flex flex-col gap-10 md:flex-row md:gap-16">
+          <div className="md:w-[444px] md:shrink-0">
             <Logo />
-            <h2 className="mt-6 font-display text-2xl font-bold text-ink md:text-3xl">
+            <h3 className="mt-10 font-display text-2xl font-bold leading-tight text-ink md:text-[28px] md:leading-[38px]">
               Join Our Newsletter
-            </h2>
-            <form className="mt-5 flex max-w-md flex-col gap-3 sm:flex-row">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
+            </h3>
+            <form className="mt-3 flex max-w-md gap-2">
               <input
-                id="newsletter-email"
                 type="email"
-                required
-                placeholder="Enter your email address"
-                className="h-12 flex-1 rounded-pill border border-line bg-white px-5 text-sm outline-none placeholder:text-ink-subtle focus:border-brand"
+                placeholder="Enter your email"
+                aria-label="Email address"
+                className="h-12 w-full rounded-pill bg-[#EDEDED] px-5 font-body text-[15px] text-ink outline-none placeholder:text-ink/50"
               />
               <button
                 type="submit"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-ink px-6 text-sm font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
+                className="h-12 shrink-0 rounded-pill bg-ink px-8 font-display text-[15px] font-bold text-white hover:bg-ink-soft"
               >
-                Sign Up
+                Sign up
               </button>
             </form>
-            <p className="mt-3 max-w-md text-xs leading-relaxed text-ink-subtle">
-              By submitting your email, you agree to our{" "}
-              <Link href="#" className="underline">Terms of Service</Link> and{" "}
-              <Link href="#" className="underline">Privacy Policy</Link>.
+            <p className="mt-2.5 font-body text-sm leading-relaxed text-ink-muted">
+              By subscribing you agree to the{" "}
+              <Link href="#" className="underline">Terms of Services</Link> and{" "}
+              <Link href="#" className="underline">Privacy Policy.</Link>
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="grid flex-1 grid-cols-2 gap-8 md:grid-cols-4">
             {COLUMNS.map((col) => (
               <nav key={col.title} aria-labelledby={`footer-${col.title}`}>
-                <h3
+                <h4
                   id={`footer-${col.title}`}
-                  className="font-display text-sm font-semibold uppercase tracking-wider text-ink"
+                  className="pb-3 font-display text-lg font-bold leading-7 text-ink"
                 >
                   {col.title}
-                </h3>
-                <ul className="mt-4 space-y-2.5 text-sm">
+                </h4>
+                <ul className="flex flex-col">
                   {col.links.map((l) => (
                     <li key={l}>
                       <Link
                         href="#"
-                        className="text-ink-muted transition-colors hover:text-brand"
+                        className="block font-body text-[15px] leading-8 text-[#4D4D4D] hover:text-ink"
                       >
                         {l}
                       </Link>
@@ -123,35 +122,61 @@ export function Footer() {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Bottom strip */}
-      <div className="border-t border-line bg-white">
-        <div className="container-wide flex flex-col items-center justify-between gap-4 py-5 text-xs text-ink-muted md:flex-row">
-          <div className="flex items-center gap-4">
-            <label className="flex h-9 items-center gap-2 rounded-pill border border-line bg-white px-3 text-sm text-ink">
-              <span>🇺🇸</span>
-              <span>United States (US) $</span>
-            </label>
-          </div>
-          <p>© {new Date().getFullYear()} Custom Tees DFW · Powered by Custom Tees</p>
-          <div className="flex items-center gap-5">
-            <ul className="flex items-center gap-4 text-xs">
-              <li><Link href="#" className="hover:text-brand">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-brand">Privacy Policy</Link></li>
-            </ul>
-            <ul className="flex items-center gap-2 text-ink">
-              {[FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon].map((I, idx) => (
-                <li key={idx}>
+        {/* Bottom */}
+        <div className="mt-10 flex flex-col gap-5 border-t border-line pt-10">
+          <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-4">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 font-body text-sm text-ink"
+              >
+                <span className="text-lg">🇺🇸</span>
+                <span>United States (USD $)</span>
+                <span className="text-[10px]">▲</span>
+              </button>
+
+              <ul className="flex flex-wrap items-center gap-2">
+                {PAYMENTS.map((p) => (
+                  <li
+                    key={p}
+                    className="flex h-6 items-center rounded border border-line bg-white px-2 font-display text-[10px] font-bold tracking-wider text-[#333]"
+                  >
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <ul className="flex items-center gap-3">
+              {[
+                { Icon: FacebookIcon, title: "Facebook" },
+                { Icon: TwitterIcon, title: "X / Twitter" },
+                { Icon: InstagramIcon, title: "Instagram" },
+                { Icon: TikTokIcon, title: "TikTok" },
+                { Icon: YoutubeIcon, title: "YouTube" },
+              ].map(({ Icon, title }) => (
+                <li key={title}>
                   <Link
                     href="#"
-                    aria-label="Social link"
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-surface hover:text-brand"
+                    aria-label={title}
+                    title={title}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#CCCCCC] bg-white text-ink hover:border-ink hover:bg-ink hover:text-white"
                   >
-                    <I size={14} />
+                    <Icon size={16} />
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
+            <p className="font-body text-[15px] text-ink">
+              © 2026 <Link href="#" className="text-ink no-underline">Customtees DFW</Link>. <Link href="#" className="text-ink no-underline">Powered by Custom Tees</Link>
+            </p>
+            <ul className="flex items-center gap-6">
+              <li><Link href="#" className="font-display text-[15px] text-ink hover:underline">Terms of Service</Link></li>
+              <li><Link href="#" className="font-display text-[15px] text-ink hover:underline">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
