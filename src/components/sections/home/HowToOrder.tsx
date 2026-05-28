@@ -1,76 +1,102 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "@/components/ui/Icon";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { IMG } from "@/lib/images";
 
-const STEPS = [
-  {
-    n: "01",
-    title: "Browse the Catalog",
-    body: "Explore hundreds of premium blanks from top brands you trust.",
-    cta: "Browse Catalog",
-    href: "/listing",
-  },
-  {
-    n: "02",
-    title: "Design Your Style",
-    body: "Upload art, add text, or work with our team to perfect your design.",
-    cta: "Start Designing",
-    href: "#",
-  },
-  {
-    n: "03",
-    title: "Pick Quantity & Sizes",
-    body: "No minimums. Order one or one thousand — same price-per-piece tiers.",
-    cta: "See Pricing",
-    href: "#",
-  },
-  {
-    n: "04",
-    title: "We Print, You Wear",
-    body: "Local Texas printing with fast turnaround and free shipping over $99.",
-    cta: "Track an Order",
-    href: "#",
-  },
-];
+const QUOTE_TAGS = ["One Service", "Bulk Orders", "Promotions", "Free Designs"];
+const DESIGN_TAGS = ["Live Preview", "Upload Artwork", "Add Text", "Templates"];
 
 export function HowToOrder() {
   return (
     <section id="how-to-order" className="bg-white py-16 md:py-20">
       <div className="container-wide">
-        <SectionHeading
-          eyebrow="How it works"
-          title={
-            <>
-              How to Order — <span className="text-brand">Pick an Option</span>
-            </>
-          }
-          description="Four simple steps from idea to perfect, printed apparel."
-        />
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">
+            Easy Ordering
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-4xl lg:text-[2.5rem]">
+            How to Order — Pick an Option
+          </h2>
+        </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s) => (
-            <article
-              key={s.n}
-              className="group flex flex-col rounded-card border border-line bg-white p-6 shadow-card transition-shadow hover:shadow-card-hover"
-            >
-              <span className="font-display text-4xl font-extrabold text-brand/15 transition-colors group-hover:text-brand/30">
-                {s.n}
-              </span>
-              <h3 className="mt-2 font-display text-lg font-bold text-ink">
-                {s.title}
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1.1fr_1fr]">
+          {/* Request Quote */}
+          <article className="relative flex flex-col overflow-hidden rounded-2xl bg-wine p-7 text-cream md:p-9">
+            <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_85%_15%,white_2px,transparent_2px)] [background-size:24px_24px]" />
+            <div className="relative">
+              <h3 className="font-display text-2xl font-bold md:text-3xl">
+                Request Quote
               </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
-                {s.body}
+              <p className="mt-3 max-w-xs text-sm leading-relaxed text-cream/80">
+                Fill out the form with your order details, and we will send a quote.
               </p>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {QUOTE_TAGS.map((t) => (
+                  <li
+                    key={t}
+                    className="rounded-pill border border-cream/30 bg-white/5 px-3 py-1 text-xs font-medium"
+                  >
+                    {t}
+                  </li>
+                ))}
+              </ul>
               <Link
-                href={s.href}
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline"
+                href="#quote"
+                className="mt-8 inline-flex h-11 items-center gap-2 rounded-pill bg-ink px-6 text-xs font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
               >
-                {s.cta}
+                Get A Quote
                 <ChevronRight size={14} />
               </Link>
-            </article>
-          ))}
+            </div>
+          </article>
+
+          {/* Design Online */}
+          <article className="flex flex-col rounded-2xl border border-line bg-cream-100 p-7 md:p-9">
+            <h3 className="font-display text-2xl font-bold text-ink md:text-3xl">
+              Design Online
+            </h3>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
+              Create your design, choose products, and then place your order online.
+            </p>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {DESIGN_TAGS.map((t) => (
+                <li
+                  key={t}
+                  className="rounded-pill border border-line bg-white px-3 py-1 text-xs font-medium text-ink"
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="relative mt-6 h-32 overflow-hidden rounded-xl border border-line bg-white">
+              <Image
+                src={IMG.howToDesignMock}
+                alt="Design studio interface"
+                fill
+                sizes="(min-width: 1024px) 30vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <Link
+              href="#"
+              className="mt-6 inline-flex h-11 w-fit items-center gap-2 rounded-pill bg-ink px-6 text-xs font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
+            >
+              Start Designing
+              <ChevronRight size={14} />
+            </Link>
+          </article>
+
+          {/* Decorative image card */}
+          <article className="relative h-64 overflow-hidden rounded-2xl bg-ink lg:h-auto">
+            <Image
+              src={IMG.howToImage}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 26vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
+          </article>
         </div>
       </div>
     </section>

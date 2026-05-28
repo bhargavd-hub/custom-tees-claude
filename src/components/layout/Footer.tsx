@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { NewsletterCta } from "@/components/sections/NewsletterCta";
 import { Logo } from "./Logo";
 import {
   FacebookIcon,
@@ -8,125 +7,155 @@ import {
   YoutubeIcon,
 } from "@/components/ui/Icon";
 
-const FOOTER_COLUMNS = [
+const COLUMNS = [
   {
     title: "Company",
     links: [
-      { label: "About Us", href: "#" },
-      { label: "Our Story", href: "#" },
-      { label: "Locations", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Press", href: "#" },
+      "About Custom Tees",
+      "Our Story",
+      "Portfolio",
+      "Blog / News",
     ],
   },
   {
     title: "Services",
     links: [
-      { label: "Screen Printing", href: "#" },
-      { label: "Embroidery", href: "#" },
-      { label: "Heat Transfer", href: "#" },
-      { label: "DTG Printing", href: "#" },
-      { label: "Promo Products", href: "#" },
+      "Design Studio",
+      "Screen Printing",
+      "Digital Printing (DTG)",
+      "Direct to Film (DTF)",
+      "Vinyl Printing",
+      "Embroidery",
     ],
   },
   {
-    title: "Customer Care",
+    title: "Special Niches",
     links: [
-      { label: "Help Center", href: "#" },
-      { label: "Order Tracking", href: "#" },
-      { label: "Shipping Info", href: "#" },
-      { label: "Returns & Exchanges", href: "#" },
-      { label: "Size Guide", href: "#" },
-      { label: "Contact Us", href: "#" },
+      "Family Reunion",
+      "Graduation",
+      "Birthday Party",
+      "Job",
+      "Holiday / Christmas",
+      "Homecoming",
+      "Family Vacation",
+      "Church Fundraising",
+      "Boys / Run / Walk",
+      "Bachelorette Party",
     ],
   },
   {
-    title: "Categories",
+    title: "Cities Served",
     links: [
-      { label: "T-Shirts", href: "/listing" },
-      { label: "Polos", href: "/listing?cat=polos" },
-      { label: "Sweatshirts", href: "/listing?cat=sweatshirts" },
-      { label: "Outerwear", href: "/listing?cat=outerwear" },
-      { label: "Headwear", href: "/listing?cat=headwear" },
-      { label: "Accessories", href: "/listing?cat=accessories" },
+      "Fort Worth, TX",
+      "Dallas, TX",
+      "Carrollton, TX",
+      "Plano, TX",
+      "Frisco, TX",
+      "Garland, TX",
+      "Farmers Branch, TX",
+      "Coppell, TX",
+      "The Colony, TX",
+      "Grand Prairie, TX",
+      "Richardson, TX",
+      "Irving, TX",
     ],
   },
 ];
 
-const PAYMENT_BADGES = ["VISA", "MC", "AMEX", "DISC", "PAYPAL", "APPLE"];
-
 export function Footer() {
   return (
-    <>
-      <NewsletterCta />
-      <footer className="bg-ink text-white/80">
-        <div className="container-wide grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
-          <div className="lg:col-span-1">
-            <Logo variant="light" />
-            <p className="mt-4 text-sm leading-relaxed text-white/65">
-              Premium custom apparel printed and shipped from Texas. No minimums,
-              no setup fees, just great gear with a little extra love.
+    <footer className="bg-white">
+      {/* Newsletter + columns */}
+      <div className="border-t border-line">
+        <div className="container-wide grid gap-12 py-14 lg:grid-cols-[1fr_2.2fr]">
+          <div>
+            <Logo />
+            <h2 className="mt-6 font-display text-2xl font-bold text-ink md:text-3xl">
+              Join Our Newsletter
+            </h2>
+            <form className="mt-5 flex max-w-md flex-col gap-3 sm:flex-row">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="newsletter-email"
+                type="email"
+                required
+                placeholder="Enter your email address"
+                className="h-12 flex-1 rounded-pill border border-line bg-white px-5 text-sm outline-none placeholder:text-ink-subtle focus:border-brand"
+              />
+              <button
+                type="submit"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-ink px-6 text-sm font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
+              >
+                Sign Up
+              </button>
+            </form>
+            <p className="mt-3 max-w-md text-xs leading-relaxed text-ink-subtle">
+              By submitting your email, you agree to our{" "}
+              <Link href="#" className="underline">Terms of Service</Link> and{" "}
+              <Link href="#" className="underline">Privacy Policy</Link>.
             </p>
-            <div className="mt-5 flex items-center gap-3">
-              {[FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon].map((I, idx) => (
-                <Link
-                  key={idx}
-                  href="#"
-                  aria-label="Social link"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
-                >
-                  <I size={16} />
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {FOOTER_COLUMNS.map((col) => (
-            <nav key={col.title} aria-labelledby={`footer-${col.title}`}>
-              <h3
-                id={`footer-${col.title}`}
-                className="font-display text-sm font-semibold uppercase tracking-wider text-white"
-              >
-                {col.title}
-              </h3>
-              <ul className="mt-4 space-y-3 text-sm">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      href={l.href}
-                      className="text-white/65 transition-colors hover:text-white"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-        </div>
-
-        <div className="border-t border-white/10">
-          <div className="container-wide flex flex-col items-center justify-between gap-4 py-5 text-xs text-white/55 md:flex-row">
-            <p>© {new Date().getFullYear()} Custom Tees. All rights reserved.</p>
-            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-              <li><Link href="#" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-white">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-white">Accessibility</Link></li>
-              <li><Link href="#" className="hover:text-white">Sitemap</Link></li>
-            </ul>
-            <ul className="flex items-center gap-2">
-              {PAYMENT_BADGES.map((b) => (
-                <li
-                  key={b}
-                  className="rounded bg-white/10 px-2 py-1 text-[10px] font-bold tracking-wide text-white/80"
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            {COLUMNS.map((col) => (
+              <nav key={col.title} aria-labelledby={`footer-${col.title}`}>
+                <h3
+                  id={`footer-${col.title}`}
+                  className="font-display text-sm font-semibold uppercase tracking-wider text-ink"
                 >
-                  {b}
+                  {col.title}
+                </h3>
+                <ul className="mt-4 space-y-2.5 text-sm">
+                  {col.links.map((l) => (
+                    <li key={l}>
+                      <Link
+                        href="#"
+                        className="text-ink-muted transition-colors hover:text-brand"
+                      >
+                        {l}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom strip */}
+      <div className="border-t border-line bg-white">
+        <div className="container-wide flex flex-col items-center justify-between gap-4 py-5 text-xs text-ink-muted md:flex-row">
+          <div className="flex items-center gap-4">
+            <label className="flex h-9 items-center gap-2 rounded-pill border border-line bg-white px-3 text-sm text-ink">
+              <span>🇺🇸</span>
+              <span>United States (US) $</span>
+            </label>
+          </div>
+          <p>© {new Date().getFullYear()} Custom Tees DFW · Powered by Custom Tees</p>
+          <div className="flex items-center gap-5">
+            <ul className="flex items-center gap-4 text-xs">
+              <li><Link href="#" className="hover:text-brand">Terms of Service</Link></li>
+              <li><Link href="#" className="hover:text-brand">Privacy Policy</Link></li>
+            </ul>
+            <ul className="flex items-center gap-2 text-ink">
+              {[FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon].map((I, idx) => (
+                <li key={idx}>
+                  <Link
+                    href="#"
+                    aria-label="Social link"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-surface hover:text-brand"
+                  >
+                    <I size={14} />
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 }

@@ -20,8 +20,8 @@ export default function HomePage() {
       <HowToOrder />
       <BestSellers />
       <ProcessBand />
-      <BrandLogosStrip />
       <CommunitySection />
+      <BrandLogosStrip />
       <WhyOrderWithUs />
       <Testimonials />
       <FaqSection />

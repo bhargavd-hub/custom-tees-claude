@@ -1,79 +1,107 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { ChevronRight } from "@/components/ui/Icon";
+import { IMG } from "@/lib/images";
 
-const REASONS = [
-  {
-    title: "Texas-Made Quality",
-    body: "Printed in-house in our climate-controlled Texas studio — never outsourced overseas.",
-  },
-  {
-    title: "No-Minimums Policy",
-    body: "Order one piece or one thousand. Real prices, no setup fees, no surprises.",
-  },
-  {
-    title: "Fast Turnaround",
-    body: "Standard orders ship in 5–7 days. Rush options as fast as 48 hours.",
-  },
-  {
-    title: "Hands-On Service",
-    body: "Real humans review your art before we print, every single time.",
-  },
-  {
-    title: "Free Mock-Ups",
-    body: "See exactly how your design will look on every garment before you commit.",
-  },
-  {
-    title: "Premium Brands Only",
-    body: "Gildan, Bella+Canvas, Next Level, Champion and more — never bargain blanks.",
-  },
+const FEATURES = [
+  "Free Shipping",
+  "No Rush Order Fees",
+  "See & Feel Garments Before Ordering",
+  "In-Person Help From A Print Specialist",
+  "Proof First Approval (Placement + Scale)",
+  "Pickup Option For Tight Deadlines",
+  "Better Control of Print Size & Placement",
+  "Quality Checks Before You Receive It",
+  "Easy Last-Minute Size/Quantity Adjustments",
 ];
+
+function Check({ on }: { on: boolean }) {
+  return on ? (
+    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="m5 12 5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  ) : (
+    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/15 text-cream/60">
+      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      </svg>
+    </span>
+  );
+}
 
 export function WhyOrderWithUs() {
   return (
-    <section className="bg-wine py-16 text-white md:py-20">
-      <div className="container-wide grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center">
-        <div className="relative h-72 overflow-hidden rounded-2xl md:h-[460px]">
-          <Image
-            src="https://placehold.co/700x800/5E1622/F2EBDD?text=Quality+Crew&font=poppins"
-            alt="Custom Tees crew at work"
-            fill
-            className="object-cover"
-            sizes="(min-width: 768px) 50vw, 100vw"
-          />
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cream">
-            Six reasons people choose us
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">
-            Why Ordering With Us <span className="text-cream">Works Better</span>
+    <section className="relative isolate overflow-hidden bg-wine py-16 text-cream md:py-20">
+      <div className="container-wide">
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-bold md:text-4xl lg:text-[2.5rem]">
+            Why Ordering With Us Works Better
           </h2>
-          <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-            {REASONS.map((r) => (
-              <li key={r.title} className="flex gap-3">
-                <span className="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/15 text-cream">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <path
-                      d="m5 12 5 5L20 7"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div>
-                  <p className="font-display text-base font-semibold">{r.title}</p>
-                  <p className="text-sm text-white/75">{r.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <Button href="#" variant="ghost" size="lg" className="mt-8">
-            Request a Quote
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-cream/80 md:text-base">
+            Not all print shops are built the same. Request a quote above and
+            see the difference for yourself.
+          </p>
+        </div>
+
+        <div className="relative mt-12 grid gap-6 md:grid-cols-[auto_1fr_1fr_auto] md:items-center">
+          {/* Left decorative image */}
+          <div className="relative hidden h-72 w-44 shrink-0 overflow-hidden rounded-2xl md:block">
+            <Image src={IMG.whyLeft} alt="" fill sizes="180px" className="object-cover" />
+          </div>
+
+          {/* Online-Only Print Shops */}
+          <article className="rounded-2xl bg-wine-900/60 p-6 ring-1 ring-cream/10 md:p-8">
+            <p className="font-display text-lg font-semibold text-cream/90">
+              Online-Only Print Shops
+            </p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {FEATURES.map((f, i) => (
+                <li key={f} className="flex items-start gap-3 text-cream/75">
+                  <Check on={i < 3} />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          {/* Custom Tees — recommended */}
+          <article className="relative rounded-2xl bg-white p-6 text-ink shadow-card-hover md:p-8">
+            <span className="absolute -top-3 right-6 rounded-pill bg-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+              Recommended
+            </span>
+            <p className="font-display text-lg font-semibold text-ink">
+              Custom Tees
+            </p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {FEATURES.map((f) => (
+                <li key={f} className="flex items-start gap-3 text-ink">
+                  <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path d="m5 12 5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          {/* Right decorative image */}
+          <div className="relative hidden h-72 w-44 shrink-0 overflow-hidden rounded-2xl md:block">
+            <Image src={IMG.whyRight} alt="" fill sizes="180px" className="object-cover" />
+          </div>
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="#quote"
+            className="inline-flex h-12 items-center gap-2 rounded-pill bg-brand px-8 text-sm font-semibold uppercase tracking-wide text-white hover:bg-brand-600"
+          >
+            Quick Quote
             <ChevronRight size={16} />
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

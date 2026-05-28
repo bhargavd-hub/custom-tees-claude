@@ -1,60 +1,77 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight } from "@/components/ui/Icon";
 import { FaqAccordion, type FaqItem } from "@/components/ui/FaqAccordion";
+import { IMG } from "@/lib/images";
 
 const FAQS: FaqItem[] = [
   {
-    question: "What is the minimum order quantity?",
+    question: "What is the turnaround time for custom t-shirts?",
     answer:
-      "There is none. Order a single tee or a thousand — the same price-per-piece tiers apply once you cross each volume break.",
+      "Most orders are completed within 5–7 business days, with timing depending on print method, quantity and artwork approval.",
   },
   {
-    question: "How long does printing take?",
+    question: "Is there a minimum order requirement?",
     answer:
-      "Standard turnaround is 5–7 business days after artwork approval. Rush options are available for as fast as 48 hours.",
+      "Nope — order a single tee or a thousand, the same price tiers apply.",
   },
   {
-    question: "Do you offer free shipping?",
+    question: "Can I use my own design or logo?",
     answer:
-      "Yes — orders over $99 ship free anywhere in the continental U.S.",
+      "Absolutely. Upload vector art (AI, EPS, SVG, PDF) or high-resolution PNG/JPG, and we'll optimize before press.",
   },
   {
-    question: "Can I see a mock-up before printing?",
+    question: "What types of garments can you print on?",
     answer:
-      "Always. We send a free digital mock-up for approval before any ink hits a garment.",
+      "Tees, polos, sweatshirts, hoodies, hats, bags, totes and more — we'll happily print on most apparel and accessories.",
   },
   {
-    question: "What file formats do you accept for artwork?",
+    question: "Do you offer rush or same-day delivery?",
     answer:
-      "Vector files (AI, EPS, SVG, PDF) are preferred. High-resolution PNG and JPG also work — our team will optimize before press.",
+      "Yes. Rush options are available as fast as 48 hours, and local Texas pickup can be same-day depending on capacity.",
   },
   {
-    question: "Do you offer eco-friendly printing options?",
+    question: "Where is Custom Tees located?",
     answer:
-      "Yes. We offer water-based and discharge inks on cotton garments for a soft hand-feel and lower environmental impact.",
+      "We're in Carrollton, TX — visit us at 1225 E. Crosby Rd, Suite A1, Carrollton, TX 75006.",
   },
 ];
 
 export function FaqSection() {
   return (
     <section className="bg-white py-16 md:py-20">
-      <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:items-start">
-        <div className="relative aspect-square overflow-hidden rounded-2xl bg-cream lg:sticky lg:top-28">
-          <Image
-            src="https://placehold.co/600x600/F2EBDD/7A1F2C?text=Got+Questions%3F&font=poppins"
-            alt="Got questions"
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 40vw, 100vw"
-          />
-        </div>
-        <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-brand">
-            We've got answers
+      <div className="container-wide grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+        <article className="overflow-hidden rounded-2xl bg-cream p-7 lg:sticky lg:top-28 lg:p-9">
+          <p className="font-display text-2xl font-bold text-ink md:text-3xl">
+            Still have questions?
           </p>
-          <h2 className="font-display text-3xl font-bold text-ink md:text-4xl">
+          <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+            Explore our guides and FAQs to find the right garment, decoration
+            method and turnaround for your project.
+          </p>
+          <div className="relative mx-auto mt-6 h-44 w-full max-w-[260px] overflow-hidden rounded-xl">
+            <Image
+              src={IMG.faqIllustration}
+              alt=""
+              fill
+              sizes="260px"
+              className="object-cover"
+            />
+          </div>
+          <Link
+            href="#"
+            className="mt-6 inline-flex h-11 w-fit items-center gap-2 rounded-pill bg-ink px-6 text-xs font-semibold uppercase tracking-wide text-white hover:bg-ink/85"
+          >
+            Help Center
+            <ChevronRight size={14} />
+          </Link>
+        </article>
+
+        <div>
+          <h2 className="font-display text-3xl font-bold text-ink md:text-4xl lg:text-[2.5rem]">
             Frequently Asked Questions
           </h2>
-          <div className="mt-8">
+          <div className="mt-6">
             <FaqAccordion items={FAQS} />
           </div>
         </div>

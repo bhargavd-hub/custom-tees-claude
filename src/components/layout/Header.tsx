@@ -7,121 +7,169 @@ import {
   CartIcon,
   ChevronDown,
   CloseIcon,
-  HeartIcon,
   MenuIcon,
+  PhoneIcon,
   SearchIcon,
-  UserIcon,
 } from "@/components/ui/Icon";
 
-const NAV_LINKS = [
-  { label: "T-Shirts", href: "/listing" },
-  { label: "Polos", href: "/listing?cat=polos" },
-  { label: "Sweatshirts", href: "/listing?cat=sweatshirts" },
-  { label: "Outerwear", href: "/listing?cat=outerwear" },
-  { label: "Accessories", href: "/listing?cat=accessories" },
-  { label: "Headwear", href: "/listing?cat=headwear" },
-  { label: "Bags", href: "/listing?cat=bags" },
-  { label: "Sale", href: "/listing?sale=true" },
+const PRIMARY_NAV = [
+  { label: "Who we are", href: "#" },
+  { label: "Our Services", href: "#" },
+  { label: "Shop Apparel", href: "/listing", hasMenu: true },
+  { label: "Design Studio", href: "#" },
+  { label: "Pages", href: "#", hasMenu: true },
+  { label: "Rush Orders", href: "#" },
 ];
+
+const SEARCH_CATEGORIES = [
+  "All Categories",
+  "T-Shirts",
+  "Polos",
+  "Sweatshirts",
+  "Hoodies",
+  "Hats",
+  "Bottoms",
+];
+
+function MailIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-line bg-white">
-      <div className="container-wide flex h-20 items-center gap-4 lg:gap-8">
-        <Logo />
+    <header className="sticky top-0 z-40 w-full bg-white">
+      {/* Top row: logo + search + actions */}
+      <div className="border-b border-line">
+        <div className="container-wide flex h-20 items-center gap-4 lg:gap-6">
+          <Logo />
 
-        <form
-          role="search"
-          className="hidden flex-1 max-w-2xl items-center overflow-hidden rounded-pill border border-line bg-white pl-1 lg:flex"
-        >
-          <div className="flex items-center gap-1 border-r border-line px-4 text-sm text-ink">
-            <span>All Categories</span>
-            <ChevronDown size={14} className="text-ink-muted" />
+          <form
+            role="search"
+            className="hidden flex-1 items-center overflow-hidden rounded-pill border border-line bg-white pl-1 lg:flex"
+          >
+            <div className="flex h-12 items-center gap-1.5 border-r border-line pl-4 pr-3 text-sm text-ink">
+              <select
+                aria-label="Search category"
+                className="cursor-pointer appearance-none bg-transparent pr-1 text-sm outline-none"
+                defaultValue="All Categories"
+              >
+                {SEARCH_CATEGORIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+              <ChevronDown size={14} className="text-ink-muted" />
+            </div>
+            <input
+              type="search"
+              placeholder="What are you looking for today?"
+              aria-label="Search products"
+              className="h-12 flex-1 bg-transparent px-4 text-sm outline-none placeholder:text-ink-subtle"
+            />
+            <button
+              type="submit"
+              aria-label="Search"
+              className="flex h-12 w-12 items-center justify-center text-ink hover:text-brand"
+            >
+              <SearchIcon size={18} />
+            </button>
+          </form>
+
+          <div className="ml-auto flex items-center gap-2 sm:gap-4 lg:gap-5">
+            <Link
+              href="tel:+19729003573"
+              className="hidden items-center gap-2 text-sm font-medium text-ink hover:text-brand md:inline-flex"
+            >
+              <PhoneIcon size={18} className="text-brand" />
+              <span>Call Us</span>
+            </Link>
+            <Link
+              href="mailto:info@customtees-dfw@gmail.com"
+              className="hidden items-center gap-2 text-sm font-medium text-ink hover:text-brand md:inline-flex"
+            >
+              <span className="text-brand">
+                <MailIcon size={18} />
+              </span>
+              <span>Email Us</span>
+            </Link>
+            <Link
+              href="#quote"
+              className="hidden h-11 items-center gap-2 rounded-pill bg-brand px-5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-brand-600 md:inline-flex"
+            >
+              Request Quote
+            </Link>
+            <Link
+              href="/cart"
+              aria-label="Cart"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface md:hidden"
+            >
+              <CartIcon size={22} />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface lg:hidden"
+            >
+              <MenuIcon size={22} />
+            </button>
           </div>
-          <input
-            type="search"
-            placeholder="Search for custom apparel..."
-            aria-label="Search products"
-            className="h-12 flex-1 bg-transparent px-4 text-sm outline-none placeholder:text-ink-subtle"
-          />
-          <button
-            type="submit"
-            className="m-1 flex h-10 items-center gap-2 rounded-pill bg-brand px-5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-brand-600"
-          >
-            <SearchIcon size={16} />
-            <span>Search</span>
-          </button>
-        </form>
-
-        <div className="ml-auto flex items-center gap-1 sm:gap-3">
-          <button
-            type="button"
-            aria-label="Search"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface lg:hidden"
-          >
-            <SearchIcon size={20} />
-          </button>
-          <Link
-            href="#"
-            aria-label="Account"
-            className="hidden h-10 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink hover:bg-surface md:inline-flex"
-          >
-            <UserIcon size={20} />
-            <span className="hidden xl:inline">Sign in</span>
-          </Link>
-          <Link
-            href="#"
-            aria-label="Wishlist"
-            className="hidden h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface md:inline-flex"
-          >
-            <HeartIcon size={20} />
-          </Link>
-          <Link
-            href="/cart"
-            aria-label="Cart"
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface"
-          >
-            <CartIcon size={22} />
-            <span className="absolute -right-0.5 -top-0.5 grid h-5 w-5 place-items-center rounded-full bg-brand text-[11px] font-bold text-white">
-              3
-            </span>
-          </Link>
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            className="ml-1 flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface lg:hidden"
-          >
-            <MenuIcon size={22} />
-          </button>
         </div>
       </div>
 
-      <nav className="hidden border-t border-line lg:block">
+      {/* Bottom row: nav + Contact Us */}
+      <nav className="hidden border-b border-line lg:block">
         <div className="container-wide flex h-12 items-center justify-between">
-          <ul className="flex items-center gap-8 text-sm font-medium text-ink">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="relative py-1 transition-colors hover:text-brand"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-6">
+            <button
+              type="button"
+              aria-label="Browse all categories"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-surface"
+            >
+              <MenuIcon size={18} />
+            </button>
+            <ul className="flex items-center gap-7 text-sm font-medium text-ink">
+              {PRIMARY_NAV.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="inline-flex items-center gap-1 py-1 transition-colors hover:text-brand"
+                  >
+                    {link.label}
+                    {link.hasMenu && (
+                      <ChevronDown size={12} className="text-ink-muted" />
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           <Link
-            href="/listing"
-            className="text-xs font-semibold uppercase tracking-wider text-brand hover:underline"
+            href="#contact"
+            className="inline-flex h-9 items-center gap-2 rounded-pill bg-brand px-5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-brand-600"
           >
-            Browse Full Catalog →
+            Contact Us
           </Link>
         </div>
       </nav>
 
+      {/* Mobile menu */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-white lg:hidden">
           <div className="container-wide flex h-20 items-center justify-between border-b border-line">
@@ -153,7 +201,7 @@ export function Header() {
               </button>
             </form>
             <ul className="space-y-1">
-              {NAV_LINKS.map((link) => (
+              {PRIMARY_NAV.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -166,6 +214,23 @@ export function Header() {
                 </li>
               ))}
             </ul>
+            <div className="mt-6 flex flex-col gap-3 border-t border-line pt-6">
+              <Link href="tel:+19729003573" className="inline-flex items-center gap-2 text-sm text-ink">
+                <PhoneIcon size={16} className="text-brand" />
+                Call Us · (972) 900-3573
+              </Link>
+              <Link href="mailto:info@customtees-dfw@gmail.com" className="inline-flex items-center gap-2 text-sm text-ink">
+                <span className="text-brand"><MailIcon size={16} /></span>
+                Email Us
+              </Link>
+              <Link
+                href="#quote"
+                onClick={() => setMobileOpen(false)}
+                className="mt-2 inline-flex h-11 items-center justify-center rounded-pill bg-brand px-5 text-sm font-semibold uppercase tracking-wide text-white"
+              >
+                Request Quote
+              </Link>
+            </div>
           </div>
         </div>
       )}
